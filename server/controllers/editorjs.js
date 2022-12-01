@@ -10,7 +10,7 @@ module.exports = ({ strapi }) => ({
   link: async (ctx) => {
     const result = await new Promise((resolve) => {
 
-      ogs(ctx.query, (error, results, response) => {
+      ogs(ctx.query).then(({ error, result, response }) => {((error, results, response) => {
 
         const imageUrl = (results.ogImage && results.ogImage.url) ? { url: results.ogImage.url } : undefined;
 
@@ -22,7 +22,7 @@ module.exports = ({ strapi }) => ({
             image: imageUrl,
           },
         })
-      })
+      })(error, result, response)})
     });
 
     ctx.send(result);
